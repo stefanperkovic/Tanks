@@ -11,32 +11,43 @@ public class Game {
 
 
     public Game(){
-        tankOne = new Tank("PlayerOne", 200, 600);
-        tankTwo = new Tank("PlayerOne", 200, 600);
         window = new GameViewer(this);
+        tankOne = new Tank("PlayerOne", 200, 400, window,this);
+        tankTwo = new Tank("PlayerTwo", 1000, 400, window,this);
+        tankOne.setOtherTank(tankTwo);
+        tankTwo.setOtherTank(tankOne);
         turn = 0;
     }
 
-    public void playGame(){
-        window.paint(window.getGraphics());
-        while (checkWin() == false){
-            if (turn % 2 == 0){
-                tankOne.setRound(true);
-                playRound(tankOne);
-                tankOne.setRound(false);
-            }
-            else{
-                tankTwo.setRound(true);
-                playRound(tankTwo);
-                tankTwo.setRound(false);
-            }
-            turn += 1;
+    public void playGame() {
+        window.repaint();
+        while (checkWin() == false) {
+
+
+//            if (turn % 2 == 0){
+//                tankOne.setRound(true);
+//                playRound(tankOne);
+//                tankOne.setRound(false);
+//            }
+//            else{
+//                tankTwo.setRound(true);
+//                playRound(tankTwo);
+//                tankTwo.setRound(false);
+//            }
+//            turn += 1;
         }
     }
 
-    public void playRound(Tank t){
-        window.repaint();
-    }
+//    public void playRound(Tank t){
+//        while(true){
+//
+//
+//
+//
+//            break;
+//        }
+//        window.repaint();
+//    }
 
     public boolean checkWin(){
         if (tankOne.getHealth() == 0 || tankTwo.getHealth() == 0){
