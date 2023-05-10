@@ -18,11 +18,21 @@ public class Tank implements ActionListener {
     private Image cannonBall;
     private boolean isShooting;
     private static final int SLEEP_TIME = 110;
-
-    public Tank(String name, int x, int y, GameViewer window, Game game){
+    private CannonBall bullet;
+    private int count;
+    private Image tankImage;
+    private String type;
+    public Tank(String name, int x, int y, String type, GameViewer window, Game game){
+        if (type.equals("left")){
+            tankImage = new ImageIcon("Resources/TankLeft.png").getImage();
+        }
+        else{
+            tankImage = new ImageIcon("Resources/TankRight.png").getImage();
+        }
+        this.type = type;
         this.name = name;
         health = 100;
-        gas = 250;
+        gas = 200;
         power = 0;
         this.x = x;
         this.y = y;
@@ -35,6 +45,13 @@ public class Tank implements ActionListener {
         Timer clock = new Timer(SLEEP_TIME, this);
         clock.start();
         isShooting = false;
+        bullet = new CannonBall(this);
+        count = 0;
+
+    }
+
+    public GameViewer getWindow() {
+        return window;
     }
 
     public void setOtherTank(Tank otherTank) {
@@ -43,6 +60,8 @@ public class Tank implements ActionListener {
 
     public void shoot(){
 
+        this.setShooting(true);
+
         if (power > otherTank.getX() - 5 && power < otherTank.getX() + 5){
             otherTank.setHealth(-20);
         }
@@ -50,20 +69,26 @@ public class Tank implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (isShooting == true){
-            int distance = power;
-            int max = angle;
-            int midpoint = (x + distance) / 2;
-            int a = -1;
-            int y = 0;
-            int distanceFromVertex;
-            for (int x = 0; x < distance; x++){
-                distanceFromVertex = (x - midpoint) * (x - midpoint);
-                y = a * distanceFromVertex + max;
-                window.getGraphics().drawImage(cannonBall, x, y, 10, 10, window);
-                window.paint(window.getGraphics());
+            if (type.equals("right")){
+                bullet.setxv(power);
             }
-            if (y <= 400){
+            else {
+                bullet.setxv(-1 * power);
+            }
+            bullet.setyvChange(angle);
+            bullet.changeLocation();
+            bullet.draw(window.getGraphics());
+//            if (type.equals("right")){
+//                count += 10;
+//            }
+//            else{
+//                count -= 10;
+//            }
+
+            if (bullet.getY() > 550){
                 this.setShooting(false);
+                bullet.reset();
+                count = 0;
             }
         }
     }
@@ -82,6 +107,14 @@ public class Tank implements ActionListener {
 
     public int getX() {
         return x;
+    }
+
+    public Image getTankImage() {
+        return tankImage;
+    }
+
+    public void setTankImage(Image tankImage) {
+        this.tankImage = tankImage;
     }
 
     public int getY() {

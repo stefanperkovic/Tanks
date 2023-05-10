@@ -7,12 +7,11 @@ public class GameViewer extends JFrame implements KeyListener {
     private Game game;
     private Image background;
     private Image cannon;
-    private Image tankImage;
+
     private int WINDOW_WIDTH;
     private int WINDOW_HEIGHT;
     public GameViewer(Game g){
-        tankImage = new ImageIcon("Resources/Tank.png").getImage();
-        background = new ImageIcon("Resources/Background.png").getImage();
+        background = new ImageIcon("Resources/newbackground.png").getImage();
         game = g;
         WINDOW_HEIGHT = 800;
         WINDOW_WIDTH = 2000;
@@ -26,14 +25,20 @@ public class GameViewer extends JFrame implements KeyListener {
     public void paint(Graphics g){
         g.drawImage(background, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, this);
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Serif", Font.PLAIN, 75));
+        g.setFont(new Font("Serif", Font.PLAIN, 20));
         if (game.getTankOne() != null){
-            g.drawString("Power: " + game.getTankOne().getX(), 200, 60);
-            g.drawString("Angle: " + game.getTankOne().getAngle(), 300, 60);
-            g.drawImage(tankImage, game.getTankOne().getX(), game.getTankOne().getY(), 50, 50, this);
+            g.drawString("Tank 1 Power: " + game.getTankOne().getPower(), 25, 50);
+            g.drawString("Angle: " + game.getTankOne().getAngle(), 185, 50);
+            g.drawString("Gas: " + game.getTankOne().getGas(), 280, 50);
+            g.drawString("Health: " + game.getTankOne().getHealth(), 360, 50);
+            g.drawImage(game.getTankOne().getTankImage(), game.getTankOne().getX(), game.getTankOne().getY(), 200, 200, this);
         }
         if (game.getTankTwo() != null){
-            g.drawImage(tankImage, game.getTankTwo().getX(), game.getTankTwo().getY(), 50, 50, this);
+            g.drawImage(game.getTankTwo().getTankImage(), game.getTankTwo().getX(), game.getTankTwo().getY(), 200, 200, this);
+            g.drawString("Tank 2 Power: " + game.getTankTwo().getPower(), 1000, 50);
+            g.drawString("Angle: " + game.getTankTwo().getAngle(), 1160, 50);
+            g.drawString("Gas: " + game.getTankTwo().getGas(), 1255, 50);
+            g.drawString("Health: " + game.getTankTwo().getHealth(), 1335, 50);
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -78,7 +83,6 @@ public class GameViewer extends JFrame implements KeyListener {
         }
         else if (keyCode == KeyEvent.VK_S){
             t.shoot();
-            t.setShooting(true);
             t.setRound(false);
             if (t == game.getTankOne()){
                 game.getTankTwo().setRound(true);
@@ -88,21 +92,11 @@ public class GameViewer extends JFrame implements KeyListener {
             }
         }
         else if(keyCode == KeyEvent.VK_A){
-            t.setAngle(5);
+            t.setAngle(1);
         }
         else if(keyCode == KeyEvent.VK_D){
-            t.setAngle(-5);
+            t.setAngle(-1);
         }
-//        else if(keyCode == KeyEvent.VK_UP)
-//        {
-//            t.setY(5);
-//        }
-//        else if(keyCode == KeyEvent.VK_DOWN)
-//        {
-//            t.setY(-5);
-//        }
-
-
         repaint();
     }
 
