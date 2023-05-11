@@ -18,8 +18,8 @@ public class CannonBall {
         xv = t.getPower();
         yvChange = t.getAngle();
 
-        x = t.getX() + 20;
-        y = 480;
+        x = t.getX() + 80;
+        y = 500;
 
         cannonBall = new ImageIcon("Resources/cannon.png").getImage();
         window = tank.getWindow();
@@ -30,19 +30,15 @@ public class CannonBall {
     }
 
     public void reset(){
-        y = 480;
+        y = 500;
         yv = 30;
-        x = t.getX() + 20;
+        x = t.getX() + 80;
     }
 
     public void changeLocation(){
         yv -= yvChange;
         x += xv;
         y -= yv;
-
-
-        System.out.println("Y: " + y);
-        System.out.println("X: " + x);
     }
 
     public void draw(Graphics g){

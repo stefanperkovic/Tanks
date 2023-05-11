@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="992a8d49-c4b4-4ec8-933d-4c9333086ff3" name="Changes" comment="CS Final">
-      <change afterPath="$PROJECT_DIR$/Resources/TankLeft.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resources/TankRight.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resources/cannon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resources/newbackground.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Resources/camo.jpeg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/Background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/TankT.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/cannon_ball.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Resources/newbackground.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/background.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CannonBall.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CannonBall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GameViewer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameViewer.java" afterDir="false" />
@@ -98,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683350171281</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="CS Final">
+      <created>1683744992796</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1683744992796</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,7 +125,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Tank.java</url>
-          <line>125</line>
+          <line>122</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

@@ -6,8 +6,7 @@ public class Game {
     private GameViewer window;
     private Tank tankOne;
     private Tank tankTwo;
-    private int turn;
-
+    private boolean gameOver;
 
 
     public Game(){
@@ -16,45 +15,17 @@ public class Game {
         tankTwo = new Tank("PlayerTwo", 1000, 426, "left", window,this);
         tankOne.setOtherTank(tankTwo);
         tankTwo.setOtherTank(tankOne);
-        turn = 0;
+        gameOver = false;
     }
 
     public void playGame() {
         window.repaint();
-        while (checkWin() == false) {
-
-
-//            if (turn % 2 == 0){
-//                tankOne.setRound(true);
-//                playRound(tankOne);
-//                tankOne.setRound(false);
-//            }
-//            else{
-//                tankTwo.setRound(true);
-//                playRound(tankTwo);
-//                tankTwo.setRound(false);
-//            }
-//            turn += 1;
-        }
     }
 
-//    public void playRound(Tank t){
-//        while(true){
-//
-//
-//
-//
-//            break;
-//        }
-//        window.repaint();
-//    }
 
-    public boolean checkWin(){
-        if (tankOne.getHealth() == 0 || tankTwo.getHealth() == 0){
-            return true;
-        }
-        else{
-            return false;
+    public void checkWin(){
+        if (tankOne.getHealth() <= 0 || tankTwo.getHealth() <= 0){
+            gameOver = true;
         }
     }
 
@@ -65,6 +36,14 @@ public class Game {
 
     public Tank getTankTwo() {
         return tankTwo;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 
     public static void main(String[] args) {

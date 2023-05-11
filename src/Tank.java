@@ -62,9 +62,7 @@ public class Tank implements ActionListener {
 
         this.setShooting(true);
 
-        if (power > otherTank.getX() - 5 && power < otherTank.getX() + 5){
-            otherTank.setHealth(-20);
-        }
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -78,17 +76,17 @@ public class Tank implements ActionListener {
             bullet.setyvChange(angle);
             bullet.changeLocation();
             bullet.draw(window.getGraphics());
-//            if (type.equals("right")){
-//                count += 10;
-//            }
-//            else{
-//                count -= 10;
-//            }
 
+            if (((bullet.getX() > otherTank.getX() + 45) && (bullet.getX() < otherTank.getX() + 145))
+                    && (bullet.getY() > otherTank.getY() + 70) && (bullet.getY() < otherTank.getY() + 135)){
+                otherTank.setHealth(-25);
+                game.checkWin();
+                this.setShooting(false);
+                bullet.reset();
+            }
             if (bullet.getY() > 550){
                 this.setShooting(false);
                 bullet.reset();
-                count = 0;
             }
         }
     }
@@ -142,7 +140,7 @@ public class Tank implements ActionListener {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health += health;
     }
 
     public int getGas() {
@@ -167,5 +165,13 @@ public class Tank implements ActionListener {
 
     public void setRound(boolean round) {
         this.round = round;
+    }
+
+    public CannonBall getBullet() {
+        return bullet;
+    }
+
+    public void setBullet(CannonBall bullet) {
+        this.bullet = bullet;
     }
 }
