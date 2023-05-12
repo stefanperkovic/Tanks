@@ -2,65 +2,66 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CannonBall {
-    private double a;
     private int y;
     private int x;
     private Image cannonBall;
     private GameViewer window;
-    private Tank t;
-    private int k;
-    private int xv;
-    private int yv;
-    private int yvChange;
+    private Tank tank;
+    private int xVelocity;
+    private int yVelocity;
+    private int yVelocityChange;
 
     public CannonBall(Tank tank) {
-        t = tank;
-        xv = t.getPower();
-        yvChange = t.getAngle();
-
-        x = t.getX() + 80;
-        y = 500;
-
-        cannonBall = new ImageIcon("Resources/cannon.png").getImage();
+        this.tank = tank;
         window = tank.getWindow();
-
-        yv = 30;
-
+        cannonBall = new ImageIcon("Resources/cannon.png").getImage();
+        xVelocity = tank.getPower();
+        yVelocity = 30;
+        yVelocityChange = tank.getAngle();
+        x = tank.getX() + 80;
+        y = 500;
 
     }
 
     public void reset(){
         y = 500;
-        yv = 30;
-        x = t.getX() + 80;
+        yVelocity = 30;
+        x = tank.getX() + 80;
     }
 
     public void changeLocation(){
-        yv -= yvChange;
-        x += xv;
-        y -= yv;
+        yVelocity -= yVelocityChange;
+        x += xVelocity;
+        y -= yVelocity;
     }
 
     public void draw(Graphics g){
-//        System.out.println("X: " + x + " Y: " + y);
         g.drawImage(cannonBall, x, y, 20, 20, window);
-
     }
 
-    public int getxv() {
-        return xv;
+
+    public int getxVelocity() {
+        return xVelocity;
     }
 
-    public void setxv(int xv) {
-        this.xv = xv;
+    public void setxVelocity(int xVelocity) {
+        this.xVelocity = xVelocity;
     }
 
-    public int getyvChange() {
-        return yvChange;
+    public int getyVelocity() {
+        return yVelocity;
     }
 
-    public void setyvChange(int yvChange) {
-        this.yvChange = yvChange;
+    public void setyVelocity(int yVelocity) {
+        this.yVelocity = yVelocity;
+    }
+
+    public int getyVelocityChange() {
+        return yVelocityChange;
+    }
+
+    public void setyVelocityChange(int yVelocityChange) {
+        this.yVelocityChange = yVelocityChange;
     }
 
     public int getX() {

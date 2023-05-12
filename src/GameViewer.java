@@ -42,11 +42,11 @@ public class GameViewer extends JFrame implements KeyListener {
             g.drawString("Space to Start", 500, 700);
         }
         else if(game.isGameOver() == true){
-            if (game.getTankOne().getHealth() < 0){
+            if (game.getTankOne().getHealth() == 0){
                 g.drawRect(0,0, WINDOW_WIDTH, WINDOW_HEIGHT);
                 g.setColor(Color.YELLOW);
                 g.setFont(new Font("Serif", Font.PLAIN, 100));
-                g.drawString("Tank 2 Wins!!!!!!", 600, 500);
+                g.drawString("Tank 2 Wins!!!!!!", 400, 400);
             }
             else{
                 g.drawRect(0,0, WINDOW_WIDTH, WINDOW_HEIGHT);

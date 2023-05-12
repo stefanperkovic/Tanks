@@ -11,8 +11,8 @@ public class Game {
 
     public Game(){
         window = new GameViewer(this);
-        tankOne = new Tank("PlayerOne", 200, 426, "right", window,this);
-        tankTwo = new Tank("PlayerTwo", 1000, 426, "left", window,this);
+        tankOne = new Tank(200, 426, "right", window,this);
+        tankTwo = new Tank(1000, 426, "left", window,this);
         tankOne.setOtherTank(tankTwo);
         tankTwo.setOtherTank(tankOne);
         gameOver = false;

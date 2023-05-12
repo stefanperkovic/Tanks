@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class Tank implements ActionListener {
-    private String name;
     private int x;
     private int y;
     private int health;
@@ -22,7 +21,7 @@ public class Tank implements ActionListener {
     private int count;
     private Image tankImage;
     private String type;
-    public Tank(String name, int x, int y, String type, GameViewer window, Game game){
+    public Tank(int x, int y, String type, GameViewer window, Game game){
         if (type.equals("left")){
             tankImage = new ImageIcon("Resources/TankLeft.png").getImage();
         }
@@ -30,8 +29,7 @@ public class Tank implements ActionListener {
             tankImage = new ImageIcon("Resources/TankRight.png").getImage();
         }
         this.type = type;
-        this.name = name;
-        health = 100;
+        health = 50;
         gas = 200;
         power = 0;
         this.x = x;
@@ -68,12 +66,12 @@ public class Tank implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (isShooting == true){
             if (type.equals("right")){
-                bullet.setxv(power);
+                bullet.setxVelocity(power);
             }
             else {
-                bullet.setxv(-1 * power);
+                bullet.setxVelocity(-1 * power);
             }
-            bullet.setyvChange(angle);
+            bullet.setyVelocityChange(angle);
             bullet.changeLocation();
             bullet.draw(window.getGraphics());
 
