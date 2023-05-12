@@ -14,22 +14,34 @@ public class Tank implements ActionListener {
     private Game game;
     private Tank otherTank;
     private GameViewer window;
-    private Image cannonBall;
     private boolean isShooting;
     private static final int SLEEP_TIME = 110;
     private CannonBall bullet;
-    private int count;
     private Image tankImage;
     private String type;
+    private static final int HEALTH_DECREASE = -25;
+    private static final int GROUND_LEVEL = 550;
+    private static final int HITBOX_LEFT = 45;
+    private static final int HITBOX_RIGHT = 145;
+    private static final int HITBOX_BOTTOM = 135;
+    private static final int HITBOX_TOP = 70;
+    private static final int SHOOTING_LEFT = -1;
+
+
+
+
+
+
+
     public Tank(int x, int y, String type, GameViewer window, Game game){
-        if (type.equals("left")){
+        this.type = type;
+        if (this.type.equals("left")){
             tankImage = new ImageIcon("Resources/TankLeft.png").getImage();
         }
         else{
             tankImage = new ImageIcon("Resources/TankRight.png").getImage();
         }
-        this.type = type;
-        health = 50;
+        health = 100;
         gas = 200;
         power = 0;
         this.x = x;
@@ -39,28 +51,15 @@ public class Tank implements ActionListener {
         this.game = game;
         otherTank = null;
         this.window = window;
-        cannonBall = new ImageIcon("Resources/cannon_ball.png").getImage();
         Timer clock = new Timer(SLEEP_TIME, this);
         clock.start();
         isShooting = false;
         bullet = new CannonBall(this);
-        count = 0;
 
-    }
-
-    public GameViewer getWindow() {
-        return window;
-    }
-
-    public void setOtherTank(Tank otherTank) {
-        this.otherTank = otherTank;
     }
 
     public void shoot(){
-
         this.setShooting(true);
-
-
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -69,24 +68,31 @@ public class Tank implements ActionListener {
                 bullet.setxVelocity(power);
             }
             else {
-                bullet.setxVelocity(-1 * power);
+                bullet.setxVelocity(SHOOTING_LEFT * power);
             }
             bullet.setyVelocityChange(angle);
             bullet.changeLocation();
             bullet.draw(window.getGraphics());
 
-            if (((bullet.getX() > otherTank.getX() + 45) && (bullet.getX() < otherTank.getX() + 145))
-                    && (bullet.getY() > otherTank.getY() + 70) && (bullet.getY() < otherTank.getY() + 135)){
-                otherTank.setHealth(-25);
+            if (((bullet.getX() > otherTank.getX() + HITBOX_LEFT) && (bullet.getX() < otherTank.getX() + HITBOX_RIGHT))
+                    && (bullet.getY() > otherTank.getY() + HITBOX_TOP) && (bullet.getY() < otherTank.getY() + HITBOX_BOTTOM)){
+                otherTank.setHealth(HEALTH_DECREASE);
                 game.checkWin();
                 this.setShooting(false);
                 bullet.reset();
             }
-            if (bullet.getY() > 550){
+            if (bullet.getY() > GROUND_LEVEL){
                 this.setShooting(false);
                 bullet.reset();
             }
         }
+    }
+    public GameViewer getWindow() {
+        return window;
+    }
+
+    public void setOtherTank(Tank otherTank) {
+        this.otherTank = otherTank;
     }
 
     public void setAngle(int angle){

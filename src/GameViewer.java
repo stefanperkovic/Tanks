@@ -12,6 +12,8 @@ public class GameViewer extends JFrame implements KeyListener {
     private int WINDOW_HEIGHT;
     private boolean inInstructions;
     private Image camo;
+
+
     public GameViewer(Game g){
         background = new ImageIcon("Resources/background.png").getImage();
         camo = new ImageIcon("Resources/camo.jpeg").getImage();
@@ -75,6 +77,7 @@ public class GameViewer extends JFrame implements KeyListener {
                 g.drawString("Health: " + game.getTankTwo().getHealth(), 1335, 50);
             }
         }
+
 
 
         Toolkit.getDefaultToolkit().sync();

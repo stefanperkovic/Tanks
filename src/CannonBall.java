@@ -13,12 +13,12 @@ public class CannonBall {
 
     public CannonBall(Tank tank) {
         this.tank = tank;
-        window = tank.getWindow();
+        window = this.tank.getWindow();
         cannonBall = new ImageIcon("Resources/cannon.png").getImage();
-        xVelocity = tank.getPower();
+        xVelocity = this.tank.getPower();
         yVelocity = 30;
-        yVelocityChange = tank.getAngle();
-        x = tank.getX() + 80;
+        yVelocityChange = this.tank.getAngle();
+        x = this.tank.getX() + 80;
         y = 500;
 
     }
