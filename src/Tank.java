@@ -32,7 +32,7 @@ public class Tank implements ActionListener {
     private static final int HITBOX_BOTTOM = 135;
     private static final int HITBOX_TOP = 70;
     private static final int SHOOTING_LEFT = -1;
-    private static final int INITIAL_HEALTH = 25;
+    private static final int INITIAL_HEALTH = 100;
     private static final int INITIAL_POWER = 0;
     private static final int INITIAL_GAS = 200;
 
@@ -136,7 +136,7 @@ public class Tank implements ActionListener {
      * Changes the power if it's greater than 0
      */
     public void changePower(int p){
-        if (power > 0){
+        if (power >= 0){
             power += p;
         }
     }
