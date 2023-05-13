@@ -1,3 +1,12 @@
+/**
+ * Stefan Perkovic
+ *
+ * Creates the CannonBall class
+ * Prints the cannonball as it flies through the air
+ * Calculates its trajectory using gravity
+ */
+
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,33 +19,46 @@ public class CannonBall {
     private int xVelocity;
     private int yVelocity;
     private int yVelocityChange;
+    private static final int INITIAL_Y_POSITION = 500;
+    private static final int INITIAL_Y_VELOCITY = 30;
+    private static final int INITIAL_X_POSITION_FACTOR = 80;
+    private static final int CANNONBALL_SIZE = 20;
 
     public CannonBall(Tank tank) {
         this.tank = tank;
         window = this.tank.getWindow();
         cannonBall = new ImageIcon("Resources/cannon.png").getImage();
         xVelocity = this.tank.getPower();
-        yVelocity = 30;
+        yVelocity = INITIAL_Y_VELOCITY;
         yVelocityChange = this.tank.getAngle();
-        x = this.tank.getX() + 80;
-        y = 500;
+        x = this.tank.getX() + INITIAL_X_POSITION_FACTOR;
+        y = INITIAL_Y_POSITION;
 
     }
 
+    /**
+     * Resets the bullet to its original position
+     */
     public void reset(){
-        y = 500;
-        yVelocity = 30;
-        x = tank.getX() + 80;
+        y = INITIAL_Y_POSITION;
+        yVelocity = INITIAL_Y_VELOCITY;
+        x = tank.getX() + INITIAL_X_POSITION_FACTOR;
     }
 
+    /**
+     * Finds the next location of the bullet
+     */
     public void changeLocation(){
         yVelocity -= yVelocityChange;
         x += xVelocity;
         y -= yVelocity;
     }
 
+    /**
+     * Draws the bullet
+     */
     public void draw(Graphics g){
-        g.drawImage(cannonBall, x, y, 20, 20, window);
+        g.drawImage(cannonBall, x, y, CANNONBALL_SIZE, CANNONBALL_SIZE, window);
     }
 
 
@@ -48,13 +70,6 @@ public class CannonBall {
         this.xVelocity = xVelocity;
     }
 
-    public int getyVelocity() {
-        return yVelocity;
-    }
-
-    public void setyVelocity(int yVelocity) {
-        this.yVelocity = yVelocity;
-    }
 
     public int getyVelocityChange() {
         return yVelocityChange;

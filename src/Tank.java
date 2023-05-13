@@ -1,3 +1,10 @@
+/**
+ * Stefan Perkovic
+ *
+ * Tank Class initializes a tank with all of its given attributes
+ * It animates the shooting of a bullet with help of the cannonball class
+ * Checks whether the opponents hitbox was hit, if so lowers their health
+ */
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -10,15 +17,14 @@ public class Tank implements ActionListener {
     private int power;
     private boolean round;
     private int angle;
-
     private Game game;
     private Tank otherTank;
     private GameViewer window;
     private boolean isShooting;
-    private static final int SLEEP_TIME = 110;
     private CannonBall bullet;
     private Image tankImage;
     private String type;
+    private static final int SLEEP_TIME = 110;
     private static final int HEALTH_DECREASE = -25;
     private static final int GROUND_LEVEL = 550;
     private static final int HITBOX_LEFT = 45;
@@ -26,12 +32,9 @@ public class Tank implements ActionListener {
     private static final int HITBOX_BOTTOM = 135;
     private static final int HITBOX_TOP = 70;
     private static final int SHOOTING_LEFT = -1;
-
-
-
-
-
-
+    private static final int INITIAL_HEALTH = 25;
+    private static final int INITIAL_POWER = 0;
+    private static final int INITIAL_GAS = 200;
 
     public Tank(int x, int y, String type, GameViewer window, Game game){
         this.type = type;
@@ -41,9 +44,9 @@ public class Tank implements ActionListener {
         else{
             tankImage = new ImageIcon("Resources/TankRight.png").getImage();
         }
-        health = 100;
-        gas = 200;
-        power = 0;
+        health = INITIAL_HEALTH;
+        gas = INITIAL_GAS;
+        power = INITIAL_POWER;
         this.x = x;
         this.y = y;
         round = false;
@@ -55,13 +58,22 @@ public class Tank implements ActionListener {
         clock.start();
         isShooting = false;
         bullet = new CannonBall(this);
-
     }
 
-    public void shoot(){
-        this.setShooting(true);
+    /**
+     * Starts the shooting process
+     * Changes the round
+     */
+    public void changeRound(){
+        setShooting(true);
+        setRound(false);
+        otherTank.setRound(true);
     }
 
+    /**
+     * Animates the bullet trajectory
+     * Finds if it hit the other tank
+     */
     public void actionPerformed(ActionEvent e) {
         if (isShooting == true){
             if (type.equals("right")){
@@ -74,17 +86,58 @@ public class Tank implements ActionListener {
             bullet.changeLocation();
             bullet.draw(window.getGraphics());
 
-            if (((bullet.getX() > otherTank.getX() + HITBOX_LEFT) && (bullet.getX() < otherTank.getX() + HITBOX_RIGHT))
-                    && (bullet.getY() > otherTank.getY() + HITBOX_TOP) && (bullet.getY() < otherTank.getY() + HITBOX_BOTTOM)){
-                otherTank.setHealth(HEALTH_DECREASE);
-                game.checkWin();
-                this.setShooting(false);
-                bullet.reset();
-            }
+            checkHit();
+
+            // Checks if the bullet hit the floor
             if (bullet.getY() > GROUND_LEVEL){
                 this.setShooting(false);
                 bullet.reset();
             }
+        }
+    }
+
+    /**
+     * Moves the tank to the left
+     */
+    public void moveLeft(){
+        if (this.getGas() > 0){
+            this.setX(-20);
+            this.setGas(-20);
+            this.getBullet().setX(this.getBullet().getX() - 20);
+        }
+    }
+
+    /**
+     * Moves the tank to right
+     */
+    public void moveRight(){
+        if (this.getGas() > 0){
+            this.setX(20);
+            this.setGas(-20);
+            this.getBullet().setX(this.getBullet().getX() + 20);
+        }
+    }
+
+    /**
+     * Checks if the bullet his the other tank
+     */
+    public void checkHit(){
+        // Checks the other tanks hitbox
+        if (((bullet.getX() > otherTank.getX() + HITBOX_LEFT) && (bullet.getX() < otherTank.getX() + HITBOX_RIGHT))
+                && (bullet.getY() > otherTank.getY() + HITBOX_TOP) && (bullet.getY() < otherTank.getY() + HITBOX_BOTTOM)){
+            otherTank.setHealth(HEALTH_DECREASE);
+            game.checkWin();
+            this.setShooting(false);
+            bullet.reset();
+        }
+    }
+
+    /**
+     * Changes the power if it's greater than 0
+     */
+    public void changePower(int p){
+        if (power > 0){
+            power += p;
         }
     }
     public GameViewer getWindow() {
@@ -101,10 +154,6 @@ public class Tank implements ActionListener {
 
     public int getAngle(){
         return angle;
-    }
-
-    public void changePower(int p){
-        power += p;
     }
 
     public int getX() {
